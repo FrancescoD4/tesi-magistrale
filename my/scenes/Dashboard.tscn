@@ -1,0 +1,179 @@
+[gd_scene load_steps=12 format=3 uid="uid://djt4n542pat0m"]
+
+[ext_resource type="Script" path="res://scenes/Dashboard.gd" id="1_3o2k7"]
+[ext_resource type="PackedScene" uid="uid://betxds6iaxvma" path="res://scenes/Dashboard_scenes/ScenarioCard.tscn" id="1_punck"]
+[ext_resource type="Texture2D" uid="uid://hylnqjapak7w" path="res://icons/dash/play-circle-svgrepo-com.svg" id="3_mdlbx"]
+[ext_resource type="Texture2D" uid="uid://ck8j2j027nmh1" path="res://icons/dash/more-horizontal-square-svgrepo-com.svg" id="4_wli6u"]
+[ext_resource type="Texture2D" uid="uid://cjhdt66eavpys" path="res://icons/dash/pause-circle-svgrepo-com (1).svg" id="5_1btwj"]
+[ext_resource type="Texture2D" uid="uid://dd4cnn3va2iwi" path="res://icons/dash/alert-hexagon-svgrepo-com (1).svg" id="6_8deyf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_scx1c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exfmj"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iy1nr"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wel8"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g52qk"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Dashboard" type="Control"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3o2k7")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74902, 0.858824, 0.996078, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.0
+text = "Dashboard
+"
+label_settings = SubResource("LabelSettings_scx1c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 40
+
+[node name="ScenarioCard_Running" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_punck")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/ScenarioCard_Running/Panel/VBoxContainer" index="0"]
+text = "Running"
+
+[node name="TextureRect" parent="VBoxContainer/HBoxContainer/ScenarioCard_Running/Panel/VBoxContainer" index="1"]
+texture = ExtResource("3_mdlbx")
+
+[node name="Label3" parent="VBoxContainer/HBoxContainer/ScenarioCard_Running/Panel/VBoxContainer" index="3"]
+text = "Shows the number of machines in running status"
+
+[node name="ScenarioCard_Stopped" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_punck")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/ScenarioCard_Stopped/Panel/VBoxContainer" index="0"]
+text = "Stopped"
+
+[node name="TextureRect" parent="VBoxContainer/HBoxContainer/ScenarioCard_Stopped/Panel/VBoxContainer" index="1"]
+texture = ExtResource("4_wli6u")
+
+[node name="Label3" parent="VBoxContainer/HBoxContainer/ScenarioCard_Stopped/Panel/VBoxContainer" index="3"]
+text = "Shows the number of machines in stopped status"
+
+[node name="ScenarioCard_Paused" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_punck")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/ScenarioCard_Paused/Panel/VBoxContainer" index="0"]
+text = "Paused"
+
+[node name="TextureRect" parent="VBoxContainer/HBoxContainer/ScenarioCard_Paused/Panel/VBoxContainer" index="1"]
+texture = ExtResource("5_1btwj")
+
+[node name="Label3" parent="VBoxContainer/HBoxContainer/ScenarioCard_Paused/Panel/VBoxContainer" index="3"]
+text = "Shows the number of machines in paused status"
+
+[node name="ScenarioCard_Suspended" parent="VBoxContainer/HBoxContainer" instance=ExtResource("1_punck")]
+layout_mode = 2
+
+[node name="Label" parent="VBoxContainer/HBoxContainer/ScenarioCard_Suspended/Panel/VBoxContainer" index="0"]
+text = "Suspended"
+
+[node name="TextureRect" parent="VBoxContainer/HBoxContainer/ScenarioCard_Suspended/Panel/VBoxContainer" index="1"]
+texture = ExtResource("6_8deyf")
+
+[node name="Label3" parent="VBoxContainer/HBoxContainer/ScenarioCard_Suspended/Panel/VBoxContainer" index="3"]
+text = "Shows the number of machines in suspended status"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+text = "Search by name: "
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_exfmj")
+placeholder_text = "es. Scenario1"
+max_length = 50
+
+[node name="Button" type="Button" parent="VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(65, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_iy1nr")
+text = "Search"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 185)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8wel8")
+fixed_icon_size = Vector2i(40, 40)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_g52qk")
+text = "Create Scenario"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[editable path="VBoxContainer/HBoxContainer/ScenarioCard_Running"]
+[editable path="VBoxContainer/HBoxContainer/ScenarioCard_Stopped"]
+[editable path="VBoxContainer/HBoxContainer/ScenarioCard_Paused"]
+[editable path="VBoxContainer/HBoxContainer/ScenarioCard_Suspended"]

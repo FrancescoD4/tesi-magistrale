@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4jj478ru1hwr"]
+
+[ext_resource type="Script" path="res://scenes/llm/MarginContainer.gd" id="1_8ey1u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpr2k"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+
+[node name="LlmScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74902, 0.858824, 0.996078, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ey1u")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Input to submit to the LLM component"
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(550, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0.74902, 0.858824, 0.996078, 1)
+custom_minimum_size = Vector2(130, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_dpr2k")
+text = "Submit to LLM"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="MarginContainer"]
