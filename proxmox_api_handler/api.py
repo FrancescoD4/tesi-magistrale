@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from proxmoxer import ProxmoxAPI
 from dotenv import load_dotenv
-import json, os
+import json, os, subprocess
 
 app = Flask(__name__)
 
@@ -286,6 +286,127 @@ def get_resources_in_states_suspended():
     
     return {"suspended_vms":c} 
 
+#mi restituisce tutte le macchine associate ad un tag vlan
+@app.route('/get_vms_by_vlan/<vlan_tag_end>', methods=['GET'])
+def get_vms_by_vlan(vlan_tag_end):
+    try:
+
+        try:
+            vlan_tag = int(vlan_tag_end)
+            
+        except ValueError:
+            return jsonify({"status": "error", "message": "VLAN tag must be an integer"}), 400
+
+        vms = proxmox.nodes('pve').qemu.get()
+
+        matching_vms = []
+        for vm in vms:
+            vm_id = vm.get('vmid')
+            vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
+            
+            # Verifica se c'è una configurazione di rete con il VLAN tag specificato
+            networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
+            for config in networks.values():
+                params = dict(param.split("=") for param in config.split(","))
+                if int(params.get("tag", -1)) == vlan_tag:
+                    matching_vms.append({
+                        "vmid": vm_id,
+                        "name": vm_config.get('name'),
+                        "vlan": vlan_tag,
+                        "bridge": params.get("bridge", "N/A")
+                    })
+                    break
+
+        # vms mantiene un array di json
+        return jsonify({"status": "success", "vms": matching_vms}), 200
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
+    
+#mi restituisce tutte le coppie tagVlan:nomeScenario in un JSON
+@app.route('/get_couples_vlan_scenarioName', methods=['GET'])
+def get_scenarios():
+    try:
+        
+        vms = proxmox.nodes('pve').qemu.get()
+
+        scenarios = {}
+
+        for vm in vms:
+            vm_id = vm.get('vmid')
+            vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
+            
+            # Per ottenere i dettagli di rete della macchina
+            networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
+            for config in networks.values():
+                params = dict(param.split("=") for param in config.split(","))
+                vlan_tag = params.get("tag")
+                
+                if vlan_tag:
+                    vlan_tag = int(vlan_tag)
+                    
+                    # Se il tag VLAN non esiste già nello scenario, lo si aggiunge
+                    if vlan_tag not in scenarios:
+                        scenarios[vlan_tag] = f"Scenario-{vlan_tag}"
+
+        return jsonify({"status": "success", "scenarios": scenarios}), 200
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
+    
+def remove_vlan_from_bridge(vlan_tag):
+    try:
+        # Comando per rimuovere la VLAN dal bridge (esempio per vmbr0)
+        bridge_name = "vmbr0"  
+        command = f"ovs-vsctl del-port {bridge_name} tag={vlan_tag}"
+        
+        subprocess.run(command, shell=True, check=True)
+        
+        return {"status": "success", "message": f"VLAN {vlan_tag} removed from bridge {bridge_name}"}
+    except Exception as e:
+        return {"status": "error", "message": f"Failed to remove VLAN {vlan_tag} from bridge", "error_details": str(e)}
+    
+@app.route('/delete_vms_by_vlan/<vlan_tag_end>', methods=['DELETE'])
+def delete_vms_by_vlan(vlan_tag_end):
+    try:
+
+        try:
+            vlan_tag = int(vlan_tag_end)
+        except ValueError:
+            return jsonify({"status": "error", "message": "VLAN tag must be an integer"}), 400
+
+        vms = proxmox.nodes('pve').qemu.get()
+
+        deleted_vms = []
+        for vm in vms:
+            vm_id = vm.get('vmid')
+            vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
+            
+            # Per verificare se la macchina è associata al VLAN tag
+            networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
+            for config in networks.values():
+                params = dict(param.split("=") for param in config.split(","))
+                if int(params.get("tag", -1)) == vlan_tag:
+
+                    proxmox.nodes('pve').qemu(vm_id).delete()
+                    deleted_vms.append(vm_id)
+                    break
+
+        # Per verificare se ci sono macchine associate
+        if not deleted_vms:
+            return jsonify({"status": "error", "message": f"No VMs found for VLAN tag {vlan_tag}"}), 404
+
+        # Per rimuovere la VLAN dal bridge
+        # remove_vlan_from_bridge(vlan_tag)
+
+        return jsonify({
+            "status": "success",
+            "message": f"Deleted all VMs with VLAN tag {vlan_tag}",
+            "deleted_vms": deleted_vms
+        }), 200
+
+    except Exception as e:
+        return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
