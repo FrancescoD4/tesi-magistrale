@@ -1,0 +1,181 @@
+[gd_scene load_steps=14 format=3 uid="uid://cprtwxg5ma4nh"]
+
+[ext_resource type="Script" path="res://scenes/Management_scenario/VBoxContainer.gd" id="1_ll68x"]
+[ext_resource type="Script" path="res://scenes/Management_scenario/VBoxContainer2.gd" id="2_i23i2"]
+[ext_resource type="Script" path="res://scenes/Management_scenario/HBoxContainer2.gd" id="3_mhi7v"]
+[ext_resource type="Script" path="res://scenes/Management_scenario/Resources_list_container.gd" id="4_jqtk1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0v4h"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udfm1"]
+bg_color = Color(0.647059, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7ycu"]
+bg_color = Color(0, 0.54902, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_75ly3"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy3oo"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nyb6"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ba2v"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5mdor"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kv3r"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+
+[node name="Management_Scenario" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74902, 0.858824, 0.996078, 1)
+
+[node name="VBoxContainer_main" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ll68x")
+
+[node name="VBoxContainer2_graph" type="VBoxContainer" parent="ColorRect/VBoxContainer_main"]
+layout_mode = 2
+script = ExtResource("2_i23i2")
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer_main/VBoxContainer2_graph"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Management Scenario
+"
+
+[node name="Panel" type="Panel" parent="ColorRect/VBoxContainer_main/VBoxContainer2_graph"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v0v4h")
+
+[node name="HBoxContainer2_buttons" type="HBoxContainer" parent="ColorRect/VBoxContainer_main"]
+layout_mode = 2
+script = ExtResource("3_mhi7v")
+
+[node name="DestroyButton" type="Button" parent="ColorRect/VBoxContainer_main/HBoxContainer2_buttons"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_udfm1")
+text = "Destroy Scenario"
+
+[node name="CreateButton" type="Button" parent="ColorRect/VBoxContainer_main/HBoxContainer2_buttons"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_n7ycu")
+text = "Create resource"
+
+[node name="BackButton" type="Button" parent="ColorRect/VBoxContainer_main/HBoxContainer2_buttons"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_75ly3")
+text = "Back"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer_main/HBoxContainer2_buttons"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/focus = SubResource("StyleBoxFlat_qy3oo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3nyb6")
+
+[node name="Resources_list_container" type="VBoxContainer" parent="ColorRect/VBoxContainer_main"]
+custom_minimum_size = Vector2(0, 225)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+script = ExtResource("4_jqtk1")
+
+[node name="Label_vm_lists" type="Label" parent="ColorRect/VBoxContainer_main/Resources_list_container"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "The scenario is composed by the following resources:"
+
+[node name="HBoxContainer_vm_list_buttons" type="HBoxContainer" parent="ColorRect/VBoxContainer_main/Resources_list_container"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer_main/Resources_list_container/HBoxContainer_vm_list_buttons"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Search by name: "
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer_main/Resources_list_container/HBoxContainer_vm_list_buttons"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1ba2v")
+placeholder_text = " es. Node A"
+max_length = 50
+
+[node name="Button" type="Button" parent="ColorRect/VBoxContainer_main/Resources_list_container/HBoxContainer_vm_list_buttons"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_5mdor")
+text = "Search"
+
+[node name="ScrollContainer_rs" type="ScrollContainer" parent="ColorRect/VBoxContainer_main/Resources_list_container"]
+custom_minimum_size = Vector2(500, 225)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="VBoxContainer2_rs" type="VBoxContainer" parent="ColorRect/VBoxContainer_main/Resources_list_container/ScrollContainer_rs"]
+custom_minimum_size = Vector2(0, 210)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemList" type="ItemList" parent="ColorRect/VBoxContainer_main/Resources_list_container/ScrollContainer_rs/VBoxContainer2_rs"]
+custom_minimum_size = Vector2(0, 210)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0kv3r")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="ColorRect/VBoxContainer_main/Resources_list_container"]
