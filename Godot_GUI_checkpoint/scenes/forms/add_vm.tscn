@@ -1,0 +1,494 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh6mk1mfobjre"]
+
+[ext_resource type="Script" path="res://scenes/forms/VBoxContainer2.gd" id="1_3pxwo"]
+[ext_resource type="LabelSettings" uid="uid://7gb05otus5vx" path="res://label_settings/new_label_settings.tres" id="2_yfdy5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7l5qi"]
+bg_color = Color(0, 0.54902, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dabnw"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74902, 0.858824, 0.996078, 1)
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 10
+script = ExtResource("1_3pxwo")
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Add a resource to the following scenario:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 5
+
+[node name="Wrapper_ID" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerVMID" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_ID"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_ID/HContainerVMID"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+text = "vmid"
+
+[node name="SpinBox" type="SpinBox" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_ID/HContainerVMID"]
+self_modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 1000.0
+value = 101.0
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_ID"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "ID univoco della VM. "
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Name" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerName" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Name"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Name/HContainerName"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "name
+"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Name/HContainerName"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "MyVM"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Name"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Nome della VM. "
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Memory" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerMemory" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Memory"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Memory/HContainerMemory"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+text = "memory"
+
+[node name="SpinBox" type="SpinBox" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Memory/HContainerMemory"]
+self_modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 100000.0
+value = 1024.0
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Memory"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Quantità di memoria RAM da assegnare alla VM, in MB. "
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Cores" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerCores" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cores"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cores/HContainerCores"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "cores
+"
+
+[node name="SpinBox" type="SpinBox" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cores/HContainerCores"]
+self_modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 1.0
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cores"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Numero di core CPU da assegnare alla VM. "
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Cpu" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerCpu" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cpu"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cpu/HContainerCpu"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "cpu
+"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cpu/HContainerCpu"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Cpu"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Tipo di CPU virtuale da usare per la VM "
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Net0" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerNet0" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Net0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Net0/HContainerNet0"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "net0"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Net0/HContainerNet0"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "virtio,bridge=vmbr0"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Net0"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Configurazione della scheda di rete virtuale (modello e bridge)."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Scsihw" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerScsihw" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsihw"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsihw/HContainerScsihw"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "scsihw
+"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsihw/HContainerScsihw"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "virtio-scsi-pci"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsihw"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Tipo di hardware di emulazione del controller SCSI."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Scsi0" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HContainerScsi0" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsi0"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsi0/HContainerScsi0"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "scsi0
+"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsi0/HContainerScsi0"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "local-lvm:10"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer/Wrapper_Scsi0"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Configurazione del disco principale della VM (dispositivo SCSI)"
+label_settings = ExtResource("2_yfdy5")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/separation = 5
+
+[node name="Wrapper_Ide" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerIde" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ide"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ide/HContainerIde"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "ide0
+"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ide/HContainerIde"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ide"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Configurazione di dischi su controller IDE"
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Ostype" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerOstype" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ostype"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ostype/HContainerOstype"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "ostype"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ostype/HContainerOstype"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Ostype"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Tipo di sistema operativo della VM"
+label_settings = ExtResource("2_yfdy5")
+
+[node name="WrapperBoot" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerBoot" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBoot"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBoot/HContainerBoot"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "boot"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBoot/HContainerBoot"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBoot"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Ordine di avvio della VM."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="WrapperBootdisk" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerBootdisk" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBootdisk"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBootdisk/HContainerBootdisk"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "bootdisk"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBootdisk/HContainerBootdisk"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "scsi0"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperBootdisk"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Nome del disco principale per l'avvio"
+label_settings = ExtResource("2_yfdy5")
+
+[node name="WrapperSockets" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerSockets" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSockets"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSockets/HContainerSockets"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 3
+text = "sockets"
+
+[node name="SpinBox" type="SpinBox" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSockets/HContainerSockets"]
+self_modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 1.0
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSockets"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Numero di socket CPU virtuali."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="WrapperAgent" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerAgent" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperAgent"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperAgent/HContainerAgent"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "agent"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperAgent/HContainerAgent"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperAgent"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Abilita l'integrazione QEMU Guest Agent."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="Wrapper_Vga" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerVga" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Vga"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Vga/HContainerVga"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "vga"
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Vga/HContainerVga"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/Wrapper_Vga"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = " Tipo di scheda grafica virtuale."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="WrapperSerial" type="VBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HContainerSerial0" type="HBoxContainer" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSerial"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSerial/HContainerSerial0"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "serial0"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSerial/HContainerSerial0"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "socket"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer2/HBoxContainer/VBoxContainer2/WrapperSerial"]
+modulate = Color(0.00784314, 0.243137, 0.541176, 1)
+layout_mode = 2
+text = "Aggiunge una porta seriale virtuale."
+label_settings = ExtResource("2_yfdy5")
+
+[node name="ButtonContainerVM" type="HBoxContainer" parent="ColorRect/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="CreateButton2" type="Button" parent="ColorRect/VBoxContainer2/ButtonContainerVM"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_7l5qi")
+text = "Create resource"
+
+[node name="BackButton2" type="Button" parent="ColorRect/VBoxContainer2/ButtonContainerVM"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dabnw")
+text = "Back"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="ColorRect/VBoxContainer2"]

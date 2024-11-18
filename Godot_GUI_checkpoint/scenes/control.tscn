@@ -1,0 +1,179 @@
+[gd_scene load_steps=15 format=3 uid="uid://c7ktwldsygktg"]
+
+[ext_resource type="Script" path="res://scenes/control.gd" id="1_p6vng"]
+[ext_resource type="Script" path="res://scenes/VBox_Button_SideBar_Container.gd" id="4_ykaof"]
+[ext_resource type="Texture2D" uid="uid://dkydm4byu57l5" path="res://icons/icons8-menu.svg" id="5_hm2wj"]
+[ext_resource type="Texture2D" uid="uid://6uxikgrqlgjs" path="res://icons/sidebar/page-analysis-svgrepo-com.svg" id="5_kyim1"]
+[ext_resource type="Script" path="res://scenes/PageManager.gd" id="5_ymdun"]
+[ext_resource type="Texture2D" uid="uid://dep441ooqqiqg" path="res://icons/sidebar/surveillance-defense-svgrepo-com.svg" id="6_r85u1"]
+[ext_resource type="Texture2D" uid="uid://udxq1b5jkipf" path="res://icons/sidebar/interface-control-svgrepo-com.svg" id="7_i153w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3mo1"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dis7"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nn4ny"]
+bg_color = Color(0, 0.466667, 0.713726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lpbw8"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aa2m2"]
+bg_color = Color(0, 0.466667, 0.713726, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yu7ey"]
+bg_color = Color(0.00784314, 0.243137, 0.541176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aux5o"]
+bg_color = Color(0, 0.466667, 0.713726, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_p6vng")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.74902, 0.858824, 0.996078, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(1145, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SideBar" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o3mo1")
+
+[node name="VBox_Button_SideBar_Container" type="VBoxContainer" parent="HBoxContainer/SideBar"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+script = ExtResource("4_ykaof")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer"]
+custom_minimum_size = Vector2(5, 60)
+layout_mode = 2
+
+[node name="ToggleButton" type="Button" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer"]
+custom_minimum_size = Vector2(50, 55)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_4dis7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nn4ny")
+icon = ExtResource("5_hm2wj")
+icon_alignment = 2
+expand_icon = true
+
+[node name="HBoxContainer_dash" type="HBoxContainer" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_dash"]
+custom_minimum_size = Vector2(5, 60)
+layout_mode = 2
+
+[node name="Dash_Button" type="Button" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_dash"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_lpbw8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aa2m2")
+text = "
+"
+icon = ExtResource("7_i153w")
+expand_icon = true
+
+[node name="HBoxContainer_edit" type="HBoxContainer" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_edit"]
+custom_minimum_size = Vector2(5, 60)
+layout_mode = 2
+
+[node name="Edit_Button" type="Button" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_edit"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_yu7ey")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aux5o")
+text = "
+"
+icon = ExtResource("5_kyim1")
+expand_icon = true
+
+[node name="HBoxContainer_llm" type="HBoxContainer" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_llm"]
+custom_minimum_size = Vector2(5, 60)
+layout_mode = 2
+
+[node name="LLM_Button" type="Button" parent="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_llm"]
+custom_minimum_size = Vector2(50, 60)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_lpbw8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aa2m2")
+text = "
+"
+icon = ExtResource("6_r85u1")
+expand_icon = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainContent" type="Control" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="PageManager" type="Node" parent="HBoxContainer/MarginContainer/MainContent"]
+script = ExtResource("5_ymdun")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer/ToggleButton" to="HBoxContainer/SideBar" method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_dash/Dash_Button" to="HBoxContainer/SideBar" method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_edit/Edit_Button" to="HBoxContainer/SideBar" method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SideBar/VBox_Button_SideBar_Container/HBoxContainer_llm/LLM_Button" to="HBoxContainer/SideBar" method="_on_button_pressed"]
