@@ -351,7 +351,7 @@ def get_scenarios():
                     
                     # Se il tag VLAN non esiste già nello scenario, lo si aggiunge
                     if vlan_tag not in scenarios:
-                        scenarios[vlan_tag] = f"Scenario-{vlan_tag}"
+                        scenarios[int(vlan_tag)] = f"Scenario-{vlan_tag}"
 
         return jsonify({"status": "success", "scenarios": scenarios}), 200
 
