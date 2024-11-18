@@ -11,6 +11,7 @@ PROXMOX_TOKEN_FRA_VALUE = os.getenv("PROXMOX_TOKEN_FRA_VALUE")
 TOKEN_NAME = os.getenv("TOKEN_NAME")
 USER = os.getenv("USER")
 PROXMOX_SERVER_URL = os.getenv("PROXMOX_SERVER_URL")
+NODE_NAME = os.getenv("NODE_NAME")
 
 proxmox = ProxmoxAPI(PROXMOX_SERVER_URL, user=USER, token_name=TOKEN_NAME, token_value=PROXMOX_TOKEN_FRA_VALUE, verify_ssl=False)
 
@@ -116,7 +117,7 @@ def create_vm():
             # 'serial0': data['vm_serial0'],
         }
 
-        proxmox.nodes('pve').qemu.create(**vm_config)
+        proxmox.nodes(NODE_NAME).qemu.create(**vm_config)
 
         #update_Json_limitation_file_after_vm_creation(vm_config)
 
@@ -131,14 +132,14 @@ def create_vm():
 def get_scenario_vms():
     try:
 
-        vms = proxmox.nodes('pve').qemu().get()
+        vms = proxmox.nodes(NODE_NAME).qemu().get()
         return jsonify(vms), 200
     
     except Exception as e:
        
         return jsonify({
             "status": "error",
-            "message": "Error retrieving VMs from the 'pve' node.",
+            "message": "Error retrieving VMs from the "+ {NODE_NAME}+ " node.",
             "error_details": str(e)
         }), 500
 
@@ -171,7 +172,7 @@ def get_vm(identifier):
     try:
         vm_id = int(identifier)
         
-        machines = proxmox.nodes('pve').qemu().get()
+        machines = proxmox.nodes(NODE_NAME).qemu().get()
         
         for machine in machines:
             if machine.get('vmid') == vm_id:
@@ -195,18 +196,18 @@ def delete_vm(id_to_remove):
             app.logger.error(f"Invalid VM ID provided: {id_to_remove}")
             return jsonify({"error": "Invalid VM ID"}), 400
         
-        node = 'pve'  
-        app.logger.info(f"Attempting to delete VM with ID: {id_to_remove} on node: {node}")
+        
+        app.logger.info(f"Attempting to delete VM with ID: {id_to_remove} on node: {NODE_NAME}")
         
         
-        vms = proxmox.nodes(node).qemu.get()
+        vms = proxmox.nodes(NODE_NAME).qemu.get()
         vm_ids = [str(vm['vmid']) for vm in vms]
         if id_to_remove not in vm_ids:
             app.logger.warning(f"VM with ID {id_to_remove} does not exist.")
             return jsonify({"error": f"VM with ID {id_to_remove} does not exist"}), 404
         
         
-        proxmox.nodes(node).qemu(id_to_remove).delete()
+        proxmox.nodes(NODE_NAME).qemu(id_to_remove).delete()
         #update_Json_limitation_file_after_vm_delete(vm_data_json)
         app.logger.info(f"Successfully deleted VM with ID: {id_to_remove}")
         
@@ -242,7 +243,7 @@ def get_resources_in_states(status):
 def get_resources_in_states_stopped():
 
     c=0
-    tmp = proxmox.nodes('pve').qemu().get()
+    tmp = proxmox.nodes(NODE_NAME).qemu().get()
 
     for vm in tmp:
         if vm['status'] == 'stopped':
@@ -254,7 +255,7 @@ def get_resources_in_states_stopped():
 def get_resources_in_states_running():
 
     c=0
-    tmp = proxmox.nodes('pve').qemu().get()
+    tmp = proxmox.nodes(NODE_NAME).qemu().get()
 
     for vm in tmp:
         if vm['status'] == 'running':
@@ -266,7 +267,7 @@ def get_resources_in_states_running():
 def get_resources_in_states_paused():
 
     c=0
-    tmp = proxmox.nodes('pve').qemu().get()
+    tmp = proxmox.nodes(NODE_NAME).qemu().get()
 
     for vm in tmp:
         if vm['status'] == 'paused':
@@ -278,13 +279,15 @@ def get_resources_in_states_paused():
 def get_resources_in_states_suspended():
 
     c=0
-    tmp = proxmox.nodes('pve').qemu().get()
+    tmp = proxmox.nodes(NODE_NAME).qemu().get()
 
     for vm in tmp:
         if vm['status'] == 'suspended':
             c =c+1
     
     return {"suspended_vms":c} 
+
+#----------------da testare in università:
 
 #mi restituisce tutte le macchine associate ad un tag vlan
 @app.route('/get_vms_by_vlan/<vlan_tag_end>', methods=['GET'])
@@ -297,12 +300,12 @@ def get_vms_by_vlan(vlan_tag_end):
         except ValueError:
             return jsonify({"status": "error", "message": "VLAN tag must be an integer"}), 400
 
-        vms = proxmox.nodes('pve').qemu.get()
+        vms = proxmox.nodes(NODE_NAME).qemu().get()
 
         matching_vms = []
         for vm in vms:
             vm_id = vm.get('vmid')
-            vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
+            vm_config = proxmox.nodes(NODE_NAME).qemu(vm_id).config.get()
             
             # Verifica se c'è una configurazione di rete con il VLAN tag specificato
             networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
@@ -322,19 +325,20 @@ def get_vms_by_vlan(vlan_tag_end):
 
     except Exception as e:
         return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
-    
-#mi restituisce tutte le coppie tagVlan:nomeScenario in un JSON
+
+
+#restituisce tutte le coppie tagVlan:nomeScenario in un JSON
 @app.route('/get_couples_vlan_scenarioName', methods=['GET'])
 def get_scenarios():
     try:
         
-        vms = proxmox.nodes('pve').qemu.get()
+        vms = proxmox.nodes(NODE_NAME).qemu().get()
 
         scenarios = {}
 
         for vm in vms:
             vm_id = vm.get('vmid')
-            vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
+            vm_config = proxmox.nodes(NODE_NAME).qemu(vm_id).config.get()
             
             # Per ottenere i dettagli di rete della macchina
             networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
@@ -354,59 +358,59 @@ def get_scenarios():
     except Exception as e:
         return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
     
-def remove_vlan_from_bridge(vlan_tag):
-    try:
-        # Comando per rimuovere la VLAN dal bridge (esempio per vmbr0)
-        bridge_name = "vmbr0"  
-        command = f"ovs-vsctl del-port {bridge_name} tag={vlan_tag}"
+# def remove_vlan_from_bridge(vlan_tag):
+#     try:
+#         # Comando per rimuovere la VLAN dal bridge (esempio per vmbr0)
+#         bridge_name = "vmbr0"  
+#         command = f"ovs-vsctl del-port {bridge_name} tag={vlan_tag}"
         
-        subprocess.run(command, shell=True, check=True)
+#         subprocess.run(command, shell=True, check=True)
         
-        return {"status": "success", "message": f"VLAN {vlan_tag} removed from bridge {bridge_name}"}
-    except Exception as e:
-        return {"status": "error", "message": f"Failed to remove VLAN {vlan_tag} from bridge", "error_details": str(e)}
+#         return {"status": "success", "message": f"VLAN {vlan_tag} removed from bridge {bridge_name}"}
+#     except Exception as e:
+#         return {"status": "error", "message": f"Failed to remove VLAN {vlan_tag} from bridge", "error_details": str(e)}
     
-@app.route('/delete_vms_by_vlan/<vlan_tag_end>', methods=['DELETE'])
-def delete_vms_by_vlan(vlan_tag_end):
-    try:
+# @app.route('/delete_vms_by_vlan/<vlan_tag_end>', methods=['DELETE'])
+# def delete_vms_by_vlan(vlan_tag_end):
+#     try:
 
-        try:
-            vlan_tag = int(vlan_tag_end)
-        except ValueError:
-            return jsonify({"status": "error", "message": "VLAN tag must be an integer"}), 400
+#         try:
+#             vlan_tag = int(vlan_tag_end)
+#         except ValueError:
+#             return jsonify({"status": "error", "message": "VLAN tag must be an integer"}), 400
 
-        vms = proxmox.nodes('pve').qemu.get()
+#         vms = proxmox.nodes('pve').qemu.get()
 
-        deleted_vms = []
-        for vm in vms:
-            vm_id = vm.get('vmid')
-            vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
+#         deleted_vms = []
+#         for vm in vms:
+#             vm_id = vm.get('vmid')
+#             vm_config = proxmox.nodes('pve').qemu(vm_id).config.get()
             
-            # Per verificare se la macchina è associata al VLAN tag
-            networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
-            for config in networks.values():
-                params = dict(param.split("=") for param in config.split(","))
-                if int(params.get("tag", -1)) == vlan_tag:
+#             # Per verificare se la macchina è associata al VLAN tag
+#             networks = {key: value for key, value in vm_config.items() if key.startswith("net")}
+#             for config in networks.values():
+#                 params = dict(param.split("=") for param in config.split(","))
+#                 if int(params.get("tag", -1)) == vlan_tag:
 
-                    proxmox.nodes('pve').qemu(vm_id).delete()
-                    deleted_vms.append(vm_id)
-                    break
+#                     proxmox.nodes('pve').qemu(vm_id).delete()
+#                     deleted_vms.append(vm_id)
+#                     break
 
-        # Per verificare se ci sono macchine associate
-        if not deleted_vms:
-            return jsonify({"status": "error", "message": f"No VMs found for VLAN tag {vlan_tag}"}), 404
+#         # Per verificare se ci sono macchine associate
+#         if not deleted_vms:
+#             return jsonify({"status": "error", "message": f"No VMs found for VLAN tag {vlan_tag}"}), 404
 
-        # Per rimuovere la VLAN dal bridge
-        # remove_vlan_from_bridge(vlan_tag)
+#         # Per rimuovere la VLAN dal bridge
+#         # remove_vlan_from_bridge(vlan_tag)
 
-        return jsonify({
-            "status": "success",
-            "message": f"Deleted all VMs with VLAN tag {vlan_tag}",
-            "deleted_vms": deleted_vms
-        }), 200
+#         return jsonify({
+#             "status": "success",
+#             "message": f"Deleted all VMs with VLAN tag {vlan_tag}",
+#             "deleted_vms": deleted_vms
+#         }), 200
 
-    except Exception as e:
-        return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
+#     except Exception as e:
+#         return jsonify({"status": "error", "message": "Internal server error", "error_details": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
